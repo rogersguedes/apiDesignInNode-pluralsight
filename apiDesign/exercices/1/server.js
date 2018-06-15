@@ -5,12 +5,19 @@ var app = express();
 
 var jsonData = {count: null, message: "hey"}
 
+var fs = require("fs")
+
 app.get("/", function(req, res){
-	res.sendFile(__dirname+'/index.html', function(err){
-		if (err) {
-			res.status(500).send(err)
-		}
+	fs.readFile('index.html', function(err, buffer){
+		var html = buffer.toString();
+		res.setHeader("Content-Type", "text/html")
+		res.send(html)
 	})
+//	res.sendFile(__dirname+'/index.html', function(err){
+//		if (err) {
+//			res.status(500).send(err)
+//		}
+//	})
 })
 
 app.get("/data", function(req, res){
